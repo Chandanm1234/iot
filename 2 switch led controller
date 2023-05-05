@@ -1,0 +1,29 @@
+// C++ code
+//
+int led=2;
+int switch_A=4;
+int switch_B=7;
+void setup()
+{
+  pinMode(led, OUTPUT);
+  pinMode(switch_A, INPUT);
+  pinMode(switch_B, INPUT);
+  Serial.begin(9600);
+}
+
+void loop()
+{
+  int a=digitalRead(switch_A);
+  int b=digitalRead(switch_B);
+  if(a==1 && b==0){
+    digitalWrite(led, HIGH); 
+  }
+  else if(b==1 && a==0){
+    digitalWrite(led, LOW);
+  }
+  else{
+    Serial.println(a);
+    Serial.println(b);
+  }
+ 
+}
