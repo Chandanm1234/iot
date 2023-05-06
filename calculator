@@ -1,0 +1,27 @@
+int a=10;
+  int b=15;
+  int add;
+  int sub;
+  int mul;
+void setup()
+{
+  Serial.begin(9600);
+  Serial.print("a-");
+  Serial.println(a);
+  Serial.print("b-");
+  Serial.println(b);
+  Serial.print("add-");
+  add=a+b;
+  Serial.println(add);
+  Serial.print("sub-");  
+  sub=a-b;
+  Serial.println(sub);
+  Serial.print("mul-"); 
+  mul=a*b;
+  Serial.println(mul);
+  
+}
+
+void loop()
+{
+}
