@@ -1,0 +1,74 @@
+// C++ code
+//
+int cand_1=2;
+int cL_1=3;
+int cand_2=4;
+int cL_2=5;
+int cand_3=13;
+int cL_3=12;
+int c1v=0;
+int c2v=0;
+int a,b;
+void setup()
+{
+  pinMode(cL_1, OUTPUT);
+  pinMode(cand_1, INPUT);
+  pinMode(cL_2, OUTPUT);
+  pinMode(cand_2, INPUT);
+  Serial.begin(9600);
+}
+
+void loop()
+{
+  int sw1R=digitalRead(cand_1);
+  int sw2R=digitalRead(cand_2);
+  int sw3R=digitalRead(cand_3);
+  if(sw1R==1){
+    c1v++;
+    delay(100);
+    digitalWrite(cL_1, HIGH);
+    Serial.print(sw1R);
+    Serial.print("  clv=");
+    Serial.println(c1v);
+    delay(100);
+  }
+  else{
+    digitalWrite(cL_1,LOW);
+  }
+  if(sw2R==1){
+    c2v++;
+    delay(100);
+    digitalWrite(cL_2, HIGH);
+    Serial.print(sw2R);
+    Serial.print("  c2v=");
+    Serial.println(c2v);
+    delay(100);
+  }
+  else{
+    digitalWrite(cL_2, LOW);
+  }
+  if(sw3R==1){
+    digitalWrite(cL_3, HIGH);
+    Serial.println("   result=");
+    Serial.print("c1v= ");
+    Serial.println(c1v);
+    Serial.print("c2v= ");
+    Serial.println(c2v);
+    delay(300);
+    if(c1v>c2v){
+    Serial.println("Winner  c1v");
+    a=c1v-c2v;
+    Serial.print("Won by=  ");
+    Serial.println(a);
+    }
+    else if(c2v>c1v){
+    Serial.println("Winner  c2v");
+    b=c2v-c1v;
+    Serial.print("Won by=  ");
+    Serial.println(b);
+    }
+    else if(c2v==c1v){
+    Serial.println("Draw");
+  }
+  }
+}
