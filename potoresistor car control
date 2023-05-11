@@ -1,0 +1,94 @@
+// C++ code
+//
+int ldr_1=A0;
+int ldr_2=A1;
+int ENA= 9;
+int IN1= 5;
+int IN2= 6;
+int ENB= 3;
+int IN3= 10;
+int IN4= 11;
+int a,b;
+void setup()
+{
+  pinMode(ldr_1, INPUT);
+  pinMode(ldr_2, INPUT);
+  pinMode(ENA, OUTPUT); 
+  pinMode(IN1, OUTPUT); 
+  pinMode(IN2, OUTPUT);
+  pinMode(ENB, OUTPUT); 
+  pinMode(IN3, OUTPUT); 
+  pinMode(IN4, OUTPUT);
+  digitalWrite(IN1, LOW); 
+  digitalWrite(IN2, LOW); 
+  digitalWrite(IN3, LOW); 
+  digitalWrite(IN4, LOW); 
+  analogWrite(ENA, 255);
+   analogWrite(ENB, 255);
+  Serial.begin(9600);
+}
+
+void loop()
+{
+  a=analogRead(ldr_1);
+  b=analogRead(ldr_2);
+  if(a>500 & b>500){
+    forward();
+    delay(1000);
+    stop();
+    delay(500);
+  }
+  else if(a<100 & b<100){
+    backward();
+    delay(1000);
+    stop();
+    delay(500);
+    }
+  else if(a>500 & b==6){
+    right();
+    delay(1000);
+    stop();
+    delay(500);
+  }
+  else if(a==6 & b>500){
+    left();
+    delay(1000);
+    stop();
+    delay(500);
+  }
+}
+void forward(){
+  digitalWrite(IN1, 255); // Make PIN 8 of the Arduino High
+  digitalWrite(IN2, 0);
+  digitalWrite(IN3, 255); // Make PIN 8 of the Arduino High
+  digitalWrite(IN4, LOW);// Make PIN 7 of the Arduino LOW
+  delay(4000);
+}
+void backward(){
+  digitalWrite(IN1, 0); // Make PIN 8 of the Arduino High
+  digitalWrite(IN2, 250);
+  digitalWrite(IN3, 0); // Make PIN 8 of the Arduino High
+  digitalWrite(IN4, 250);// Make PIN 7 of the Arduino LOW
+  delay(4000);
+}
+void right(){
+  digitalWrite(IN1, 0); // Make PIN 8 of the Arduino High
+  digitalWrite(IN2, 255);
+  digitalWrite(IN3, 255); // Make PIN 8 of the Arduino High
+  digitalWrite(IN4, 0);// Make PIN 7 of the Arduino LOW
+  delay(4000);
+}
+void left(){
+  digitalWrite(IN1, 0); // Make PIN 8 of the Arduino High
+  digitalWrite(IN2, 255);
+  digitalWrite(IN3, 255); // Make PIN 8 of the Arduino High
+  digitalWrite(IN4, 0);// Make PIN 7 of the Arduino LOW
+  delay(4000);
+}
+  void stop(){
+    digitalWrite(IN1, 0); // Make PIN 8 of the Arduino High
+  digitalWrite(IN2, 0);
+  digitalWrite(IN3, 0); // Make PIN 8 of the Arduino High
+  digitalWrite(IN4, 0);// Make PIN 7 of the Arduino LOW
+  delay(4000);
+  }   
