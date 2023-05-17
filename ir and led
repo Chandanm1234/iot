@@ -1,0 +1,23 @@
+int ir_sensor=3;
+int led=7;
+int a;
+void setup() {
+  // put your setup code here, to run once:
+  Serial.begin(9600);
+  pinMode(ir_sensor, INPUT);
+  pinMode(led, OUTPUT);
+
+}
+
+void loop() {
+  // put your main code here, to run repeatedly:
+ a=digitalRead(ir_sensor);
+ if(a==1){
+   Serial.println("Serial value recieved");
+   digitalWrite(led, HIGH);
+ }
+ else{
+   Serial.println("Serial value is low");
+   digitalWrite(led, LOW);
+ }
+}
