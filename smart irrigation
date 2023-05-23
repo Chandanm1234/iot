@@ -1,0 +1,54 @@
+#include <ESP8266WiFi.h>
+#include <BlynkSimpleEsp8266.h>
+
+// Wi-Fi credentials
+char auth[] = "your_blynk_auth_token";
+char ssid[] = "your_wifi_ssid";
+char pass[] = "your_wifi_password";
+
+// Pin assignments
+const int moisturePin = A0;
+const int pumpPin = D1;
+
+// Threshold values for soil moisture
+const int moistureThreshold = 500;
+
+void setup()
+{
+  // Initialize serial communication
+  Serial.begin(9600);
+
+  // Connect to Wi-Fi
+  Blynk.begin(auth, ssid, pass);
+  
+  // Setup pump pin as output
+  pinMode(pumpPin, OUTPUT);
+}
+
+void loop()
+{
+  // Run Blynk
+  Blynk.run();
+  
+  // Read soil moisture value
+  int moistureValue = analogRead(moisturePin);
+  
+  // Print moisture value
+  Serial.print("Moisture: ");
+  Serial.println(moistureValue);
+
+  // Turn on/off pump based on moisture level
+  if (moistureValue > moistureThreshold)
+  {
+    digitalWrite(pumpPin, HIGH);  // Turn off pump
+    Serial.println("Pump OFF");
+  }
+  else
+  {
+    digitalWrite(pumpPin, LOW);   // Turn on pump
+    Serial.println("Pump ON");
+  }
+  
+  // Delay before next reading
+  delay(5000);
+}
