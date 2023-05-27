@@ -1,0 +1,42 @@
+int ir_1=2;
+int EnA=9 ;
+int M11=5;
+int M12=6;
+
+
+void setup(){
+pinMode(ir_1, INPUT);
+pinMode(EnA, OUTPUT);
+pinMode(M11, OUTPUT);
+pinMode(M12, OUTPUT);
+digitalWrite(EnA, HIGH);
+digitalWrite(M11, HIGH);
+digitalWrite(M12, LOW);
+delay(1000);
+digitalWrite(in_1, LOW);
+digitalWrite(in_2, LOW);
+Serial.begin(9600);
+}
+void loop(){
+
+  int a=digitalRead(ir_1);
+  Serial.print(a);
+ /* if(a==1)
+{
+  }
+ else 
+{
+ }*/
+
+}
+
+/*void forward(){
+  digitalWrite(in_1, HIGH);
+  digitalWrite(in_2, LOW);
+  Serial.print(a);
+}
+void backward(){
+ digitalWrite(in_2, HIGH);
+  digitalWrite(in_1, LOW);
+  Serial.print(a);
+}*/
