@@ -21,16 +21,16 @@ void loop(){
 
   int a=digitalRead(ir_1);
   Serial.print(a);
- /* if(a==1)
+ if(a==1)
 {
   }
  else 
 {
- }*/
+ }
 
 }
 
-/*void forward(){
+void forward(){
   digitalWrite(in_1, HIGH);
   digitalWrite(in_2, LOW);
   Serial.print(a);
@@ -39,4 +39,4 @@ void backward(){
  digitalWrite(in_2, HIGH);
   digitalWrite(in_1, LOW);
   Serial.print(a);
-}*/
+}
