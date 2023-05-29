@@ -1,0 +1,38 @@
+// Pin numbers for LEDs
+const int redLedPin = 2;
+const int yellowLedPin = 3;
+
+// Variable to store the value
+int value = 1;
+
+void setup() {
+  // Set LED pins as OUTPUT
+  pinMode(redLedPin, OUTPUT);
+  pinMode(yellowLedPin, OUTPUT);
+
+  // Serial communication initialization
+  Serial.begin(9600);
+}
+
+void loop() {
+  // Print the value
+  Serial.println(value);
+
+  // Check if the value is even or odd
+  if (value % 2 == 0) {
+    // Blink the red LED if even
+    digitalWrite(redLedPin, HIGH);
+    delay(500);
+    digitalWrite(redLedPin, LOW);
+    delay(500);
+  } else {
+    // Blink the yellow LED if odd
+    digitalWrite(yellowLedPin, HIGH);
+    delay(500);
+    digitalWrite(yellowLedPin, LOW);
+    delay(500);
+  }
+
+  // Increment the value
+  value++;
+}
