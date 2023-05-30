@@ -1,0 +1,47 @@
+int ir_1=2;
+int ir_2=3;
+int led_1=4;
+int led_2=5;
+void setup() {
+  // put your setup code here, to run once:
+ pinMode(ir_1, INPUT);
+ pinMode(ir_2, INPUT);
+ pinMode(led_1, OUTPUT);
+ pinMode(led_2, OUTPUT);
+ Serial.begin(9600);
+
+}
+
+void loop() {
+  // put your main code here, to run repeatedly:
+  int a=digitalRead(ir_1);
+  int b=digitalRead(ir_2);
+  Serial.print("a =");
+  Serial.print(a);
+  Serial.print("b =");
+  Serial.println(b);
+  if(a==0){
+    ON();
+  }
+    else{
+     OFF();
+  }
+  if(b==0){
+    ON_2();
+  }
+    else{
+      OFF_2();
+    }
+}
+void ON(){
+  digitalWrite(led_1, HIGH);
+}
+void OFF(){
+  digitalWrite(led_1, LOW);
+}
+void ON_2(){
+  digitalWrite(led_2, HIGH);
+}
+void OFF_2(){
+  digitalWrite(led_2, LOW);
+}
