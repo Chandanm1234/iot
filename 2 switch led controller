@@ -22,8 +22,8 @@ void loop()
     digitalWrite(led, LOW);
   }
   else{
-    Serial.println(a);
-    Serial.println(b);
+    Serial.println(a);// serial print value a//
+    Serial.println(b);// serial print value b//
   }
  
 }
