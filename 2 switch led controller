@@ -5,7 +5,7 @@ int switch_A=4;
 int switch_B=7;
 void setup()
 {
-  pinMode(led, OUTPUT);
+  pinMode(led, OUTPUT);//output//
   pinMode(switch_A, INPUT);
   pinMode(switch_B, INPUT);
   Serial.begin(9600);
