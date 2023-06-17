@@ -9,7 +9,7 @@ void loop()
   for(int i=25;i>0;i++)
     {
   digitalWrite(2, HIGH);
-  delay(1000); // Wait for 1000 millisecond(s)
+  delay(1000); // Wait for 1 second(s)
   digitalWrite(2, LOW);
   delay(1000); // Wait for 1000 millisecond(s)
     }
