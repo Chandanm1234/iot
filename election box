@@ -14,7 +14,7 @@ void setup()
   pinMode(cL_1, OUTPUT);
   pinMode(cand_1, INPUT);
   pinMode(cL_2, OUTPUT);//output//
-  pinMode(cand_2, INPUT);
+  pinMode(cand_2, INPUT);//input//
   Serial.begin(9600);
 }
 
