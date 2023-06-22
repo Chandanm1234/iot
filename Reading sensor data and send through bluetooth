@@ -3,7 +3,7 @@
  * USE THIS SKETCH ONLY FOR VIEWING SENSOR DATA ON SERIAL MONITOR.....NOT FOR FILE WRITING
  */
  
-int temp; //variable to hold temperature sensor value
+int temp;//variable to hold temperature sensor value
 long tm,t,d; //variables to record time in seconds
 
 void setup()
