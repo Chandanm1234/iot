@@ -8,7 +8,7 @@ long tm,t,d; //variables to record time in seconds
 
 void setup()
 {
-  Serial.begin(9600);
+  Serial.begin(9600);//to use 9600 bits data to send
   pinMode(0,INPUT);//temperature sensor connected to analog 0
   analogReference(DEFAULT);
 }
