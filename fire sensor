@@ -1,0 +1,25 @@
+const int flameSensorPin = 2; // Pin connected to the digital output of the Flame Sensor
+const int buzzerPin = 3; // Pin connected to the buzzer
+
+void setup() {
+  Serial.begin(9600);
+  pinMode(flameSensorPin, INPUT);
+  pinMode(buzzerPin, OUTPUT);
+}
+
+void loop() {
+  int flameValue = digitalRead(flameSensorPin);
+
+  if (flameValue == HIGH) {
+    Serial.println("Fire detected!");
+    tone(buzzerPin, 1000); // Sound the buzzer
+    delay(500); 
+    noTone(buzzerPin); // Turn off the buzzer
+    delay(500); 
+  } 
+else {
+    // No fire detected
+    Serial.println("No fire detected.");
+    noTone(buzzerPin); // Make sure the buzzer is off
+  }
+}
