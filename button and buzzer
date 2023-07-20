@@ -1,0 +1,18 @@
+const int buttonPin = 2;   // Button connected to pin 2
+const int buzzerPin = 3;   // Buzzer connected to pin 3
+
+void setup() {
+  pinMode(buttonPin, INPUT_PULLUP);  // Set button pin as input with internal pull-up resistor
+  pinMode(buzzerPin, OUTPUT);        // Set buzzer pin as output
+}
+
+void loop() {
+  if (digitalRead(buttonPin) == LOW) {
+    digitalWrite(buzzerPin, HIGH);  // Turn on the buzzer if the button is pressed
+    delay(200);                     // Buzzer on time
+    while (digitalRead(buttonPin) == LOW) {
+      // Wait until the button is released
+    }  
+    digitalWrite(buzzerPin, LOW);   // Turn off the buzzer after button release
+  }
+}
