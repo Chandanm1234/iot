@@ -2,7 +2,6 @@
  * CONNECT TO OUTGOING PORT HC-05 'DEV-B' TO VIEW DATA ON SERIAL MONITOR
  * USE THIS SKETCH ONLY FOR VIEWING SENSOR DATA ON SERIAL MONITOR.....NOT FOR FILE WRITING
  */
- //c++
 int temp;//variable to hold temperature sensor value
 long tm,t,d; //variables to record time in seconds
 
