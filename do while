@@ -1,5 +1,4 @@
 // C++ code
-//dowhile
 void setup()
 {
   pinMode(2, OUTPUT);
