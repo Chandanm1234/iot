@@ -1,0 +1,53 @@
+// Define constants
+const int numLEDs = 8;       // Number of LEDs
+const int numButtons = 8;    // Number of buttons
+const int scoreDisplayPin = 4; // Connect this to the score display
+
+// Arrays to store LED and button pins
+int ledPins[] = {2, 3, 4, 5, 6, 7, 8, 9};
+int buttonPins[] = {10, 11, 12, 13, A0, A1, A2, A3};
+
+// Variables
+int score = 0;
+
+void setup() {
+  // Initialize LEDs as OUTPUT
+  for (int i = 0; i < numLEDs; i++) {
+    pinMode(ledPins[i], OUTPUT);
+  }
+
+  // Initialize buttons as INPUT_PULLUP
+  for (int i = 0; i < numButtons; i++) {
+    pinMode(buttonPins[i], INPUT_PULLUP);
+  }
+
+  // Initialize Serial communication (for debugging)
+  Serial.begin(9600);
+
+  // Optional: Initialize score display
+  // pinMode(scoreDisplayPin, OUTPUT);
+}
+
+void loop() {
+  // Generate a random mole LED to light up
+  int moleIndex = random(numLEDs);
+  digitalWrite(ledPins[moleIndex], HIGH);
+
+  // Wait for the player to whack the mole
+  while (digitalRead(buttonPins[moleIndex]) == HIGH) {
+    // Wait for the button to be pressed
+  }
+
+  // Player whacked the mole
+  digitalWrite(ledPins[moleIndex], LOW);
+  score++;
+
+  // Optional: Update score display
+  // digitalWrite(scoreDisplayPin, score);
+
+  // Print score to Serial (for debugging)
+  Serial.println("Score: " + String(score));
+
+  // Delay before the next mole appears
+  delay(random(1000, 3000));
+}
