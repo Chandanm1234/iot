@@ -1,7 +1,3 @@
-/*Solar tracking system
-   https://srituhobby.com
-*/
-
 //Include the servo motor library
 #include <Servo.h>
 //Define the LDR sensor pins
