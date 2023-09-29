@@ -1,4 +1,3 @@
-//Include the servo motor library
 #include <Servo.h>
 //Define the LDR sensor pins
 #define LDR1 A0
