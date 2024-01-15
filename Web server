@@ -1,0 +1,183 @@
+#include <ESP8266WiFi.h>
+#include <WiFiClient.h>
+#include <ESP8266WebServer.h>
+#include <ESP8266mDNS.h>  // Corrected library name
+#include <LiquidCrystal_I2C.h>  // Corrected library name
+
+int Ang = A0;
+
+// LCD 16*2
+LiquidCrystal_I2C lcd(0x27, 20, 4);  // Adjust the I2C address if necessary
+
+// Hotspot
+MDNSResponder mdns;  // Corrected object name
+const char* ssid = "your_SSID";  // Replace with your SSID
+const char* password = "your_PASSWORD";  // Replace with your password
+String webString = "";
+String webPage = "";
+String web = "";
+
+// Pins
+int pin1 = D6;  // Pin 1 is D6
+int pin2 = D7;  // Pin 2 is D7
+int pin3 = D8;  // Pin 3 is D8
+int pin4 = D0;  // Pin 4 is D0
+
+// Temp variable
+int TEMP_level = 0;
+
+ESP8266WebServer server(80);  // Define the server on port 80
+
+void setup() {
+  lcd.begin(20, 4);
+  lcd.print("Robot Monitoring");
+
+  // For temperature
+  webPage += "<h2>ESP8266 Web Server new</h2><p>TEMP METER <a href=\"TEMP\"><button> TEMPERATURE  (oC)</button></a></p>;";
+  webPage += "<p>BULB-STATUS <a href=\"BULBON\"><button>ON</button></a>&nbsp<a href=\"BULBOFF\"><button>OFF</button></a></p>;";
+  webPage += "<p>FAN-STATUS <a href=\"FANON\"><button>ON</button></a>&nbsp<a href=\"FANOFF\"><button>OFF</button></a></p>;";
+  webPage += "<p>EXHAUST FAN-STATUS <a href=\"EXHAUSTON\"><button>ON</button></a>&nbsp<a href=\"EXHAUSTOFF\"><button>OFF</button></a></p>;";
+  webPage += "<p>GYSER-STATUS <a href=\"GYSERON\"><button>ON</button></a>&nbsp<a href=\"GYSEROFF\"><button>OFF</button></a></p>;";
+  webPage += "<p>ALLOFF-STATUS <a href=\"GYSERON\"><button>ON</button></a>&nbsp<a href=\"GYSEROFF\"><button>OFF</button></a></p>;";
+
+  // GPIO's
+  pinMode(pin1, OUTPUT);
+  digitalWrite(pin1, LOW);
+  pinMode(pin2, OUTPUT);
+  digitalWrite(pin2, LOW);
+  pinMode(pin3, OUTPUT);
+  digitalWrite(pin3, LOW);
+  pinMode(pin4, OUTPUT);
+  digitalWrite(pin4, LOW);
+
+  delay(1000);
+  Serial.begin(115200);
+  WiFi.begin(ssid, password);
+
+  Serial.println("");
+
+  // Connection check
+  while (WiFi.status() != WL_CONNECTED) {
+    delay(500);
+    Serial.print(".");
+  }
+
+  Serial.println("");
+  Serial.print("Connected to ");
+  Serial.println(ssid);
+  Serial.println("IP address: ");
+  Serial.println(WiFi.localIP());  // Print IP on serial
+
+  if (mdns.begin("esp8266", WiFi.localIP())) {
+    Serial.println("MDNS responder started");
+  }
+
+  server.on("/", []() {
+    server.send(200, "text/html", webPage);
+  });
+
+  /******************************************************************************/
+
+  server.on("/TEMP", []() {
+    get_TEMP();
+    webString = "Temperature: " + String((float)TEMP_level) + "oC";
+    server.send(200, "text/plain", webString);  // To send to someone's browser
+  });
+
+  server.on("/BULBON", []() {
+    server.send(200, "text/html", webPage);
+    digitalWrite(pin1, HIGH);
+    digitalWrite(pin2, LOW);
+    digitalWrite(pin3, LOW);
+    digitalWrite(pin4, LOW);
+    lcd.clear();
+    lcd.setCursor(0, 1);
+    lcd.print("BULB ON");
+    delay(1000);
+  });
+
+  server.on("/BULBOFF", []() {
+    server.send(200, "text/html", webPage);
+    digitalWrite(pin1, LOW);
+    digitalWrite(pin2, LOW);
+    digitalWrite(pin3, LOW);
+    digitalWrite(pin4, LOW);
+    lcd.clear();
+    lcd.setCursor(0, 1);
+    lcd.print("BULB OFF");
+    delay(1000);
+  });
+
+  server.on("/FANON", []() {
+    server.send(200, "text/html", webPage);
+    digitalWrite(pin1, LOW);
+    digitalWrite(pin2, HIGH);
+    digitalWrite(pin3, LOW);
+    digitalWrite(pin4, LOW);
+    lcd.clear();
+    lcd.setCursor(0, 1);
+    lcd.print("FAN ON");
+    delay(1000);
+  });
+
+  server.on("/FANOFF", []() {
+    server.send(200, "text/html", webPage);
+    digitalWrite(pin1, LOW);
+    digitalWrite(pin2, LOW);
+    digitalWrite(pin3, LOW);
+    digitalWrite(pin4, LOW);
+    lcd.clear();
+    lcd.setCursor(0, 1);
+    lcd.print("FAN OFF");
+    delay(1000);
+  });
+
+  server.on("/EXHAUSTON", []() {
+    server.send(200, "text/html", webPage);
+    digitalWrite(pin1, LOW);
+    digitalWrite(pin2, LOW);
+    digitalWrite(pin3, HIGH);
+    digitalWrite(pin4, LOW);
+    lcd.clear();
+    lcd.setCursor(0, 1);
+    lcd.print("EXHAUST ON");
+    delay(1000);
+  });
+
+  server.on("/EXHAUSTOFF", []() {
+    server.send(200, "text/html", webPage);
+    digitalWrite(pin1, LOW);
+    digitalWrite(pin2, LOW);
+    digitalWrite(pin3, LOW);
+    digitalWrite(pin4, LOW);
+    lcd.clear();
+    lcd.setCursor(0, 1);
+    lcd.print("EXHAUST OFF");
+    delay(1000);
+  });
+
+  server.on("/GYSERON", []() {
+    server.send(200, "text/html", webPage);
+    digitalWrite(pin1, LOW);
+    digitalWrite(pin2, LOW);
+    digitalWrite(pin3, LOW);
+    digitalWrite(pin4, HIGH);
+    lcd.clear();
+    lcd.setCursor(0, 1);
+    lcd.print("GYSER ON");
+    delay(1000);
+  });
+
+  server.on("/GYSEROFF", []() {
+    server.send(200, "text/html", webPage);
+    digitalWrite(pin1, LOW);
+    digitalWrite(pin2, LOW);
+    digitalWrite(pin3, LOW);
+    digitalWrite(pin4, LOW);
+    lcd.clear();
+    lcd.setCursor(0, 1);
+    lcd.print("GYSER OFF");
+    delay(1000);
+  });
+
+ 
